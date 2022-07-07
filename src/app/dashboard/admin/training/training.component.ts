@@ -29,7 +29,7 @@ export class TrainingComponent implements OnInit {
 
   // ];
 
-  displayedColumns: string[] = ['sessionName', 'sessionTrainer', 'sessionField', 'sessiondate'];
+  displayedColumns: string[] = ['sessionName', 'sessionTrainer', 'sessionField', 'sessiondate','Action'];
   //sessionsSource = this.sessions
     ;
   dataSource: MatTableDataSource<any>;
@@ -51,7 +51,11 @@ export class TrainingComponent implements OnInit {
   openDialog() {
     this.dialog.open(DialogComponent, {
       width: "30%"
-    });
+    }).afterClosed().subscribe(val=>{
+      if(val === 'save'){
+        this.getAllSessions();
+      }
+    })
   }
   getAllSessions() {
     this.api.getSession()
@@ -65,6 +69,27 @@ export class TrainingComponent implements OnInit {
           alert("error while fetching")
         }
       })
+
+  }
+  editsession(row : any){
+    this.dialog.open(DialogComponent,{
+      width:'30%' ,
+      data:row
+    }).afterClosed().subscribe(val=>{
+      if(val === 'update'){
+        this.getAllSessions();
+    } })
+  }
+  deleteSession(id:number){
+    this.api.deleteSession(id)
+    .subscribe({
+      next:(res)=>{
+        this.getAllSessions();
+      },
+      error:()=>{
+        alert("error while deleting")
+      }
+    })
 
   }
   

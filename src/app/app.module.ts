@@ -39,6 +39,9 @@ import {MatSortModule} from '@angular/material/sort';
 
 
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +58,7 @@ import {MatSortModule} from '@angular/material/sort';
     AccountsManagerComponent,
     TrainingComponent,
     DialogComponent,
+ 
 
 
   ],

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ApiService } from 'src/app/service/api.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog',
@@ -11,7 +11,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class DialogComponent implements OnInit {
 
   sessionForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder, private api: ApiService,
+  actionBtn : string = "save"
+  constructor(private formBuilder: FormBuilder,
+     private api: ApiService,
+     @Inject(MAT_DIALOG_DATA) public editData : any,
     private dialogRef: MatDialogRef<DialogComponent>) { }
 
   ngOnInit(): void {
@@ -21,15 +24,21 @@ export class DialogComponent implements OnInit {
       sessionField: ['', Validators.required],
       sessiondate: ['', Validators.required]
     });
-    
+    if(this.editData){
+      this.actionBtn = "update"
+      this.sessionForm.controls["sessionName"].setValue(this.editData.sessionName);
+      this.sessionForm.controls["sessionTrainer"].setValue(this.editData.sessionTrainer);
+      this.sessionForm.controls["sessionField"].setValue(this.editData.sessionField);
+      this.sessionForm.controls["sessiondate"].setValue(this.editData.sessiondate);
+    }
   }
   addSession() {
     console.log("hello "  + this.sessionForm.value)
+    if (! this.editData){
     if (this.sessionForm.valid) {
       this.api.postSession(this.sessionForm.value)
         .subscribe({
           next: (res) => {
-            alert("session added succeesfully");
             this.sessionForm.reset();
             this.dialogRef.close('save');
           },
@@ -39,5 +48,19 @@ export class DialogComponent implements OnInit {
           }
         })
     }
-  }
+  }else{
+      this.updatesession()
+    }
+}
+updatesession(){
+  this.api.putSession(this.sessionForm.value,this.editData.id)
+  .subscribe({
+    next:(res)=>{
+      this.sessionForm.reset();
+      this.dialogRef.close('update');
+    },
+    error:()=>{alert("error while updating")}
+  })
+  
+}
 }

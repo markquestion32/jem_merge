@@ -4,22 +4,8 @@
       "sessionName": "a",
       "sessionTrainer": "a",
       "sessionField": "1",
-      "sessiondate": "2022-07-04T23:00:00.000Z",
+      "sessiondate": "2022-06-30T23:00:00.000Z",
       "id": 1
-    },
-    {
-      "sessionName": "b",
-      "sessionTrainer": "b",
-      "sessionField": "2",
-      "sessiondate": "2022-07-07T23:00:00.000Z",
-      "id": 2
-    },
-    {
-      "sessionName": "c",
-      "sessionTrainer": "c",
-      "sessionField": "3",
-      "sessiondate": "2022-07-29T23:00:00.000Z",
-      "id": 3
     }
   ],
   "comments": [
