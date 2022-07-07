@@ -1,0 +1,43 @@
+<div class="container-fluid page">
+  <div class="d-flex page__box p-3 mt-0 ">Users List  </div>
+  <div class="page__content shadow  position-relative">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+    
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      </ng-container>
+    
+      
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>    
+    
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef> lastName </th>
+        <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+      </ng-container>   
+      
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef> phone </th>
+        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef> role </th>
+        <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+      </ng-container>
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    
+    
+  </div>
+</div>
